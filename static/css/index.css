@@ -26,9 +26,9 @@
     width: 80%;
 }
 
-button {
-    width: 17%;
-    height: 10%;
+input{
+    width: 250px;
+    height: 45px;
     background-color: #66A9D9 !important;
     color: white;
     padding: 10px 10px;
