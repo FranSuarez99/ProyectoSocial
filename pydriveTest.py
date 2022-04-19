@@ -15,9 +15,12 @@ palabrasID = 0
 file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
 for file1 in file_list:
   print('title: %s, id: %s' % (file1['title'], file1['id']))
-  if file1['title'] == 'palabras':
+  if file1['title'] == 'palabras.txt':
       palabrasID = file1['id']
 palabras = drive.CreateFile({'id': palabrasID})
 palabras.GetContentFile('palabras.txt')
+content = palabras.GetContentString().strip().split()
+
+print(content)
 
 #prueba commit suribe
