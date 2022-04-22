@@ -1,21 +1,45 @@
 
-function addLetter(){
-	var table_row = document.getElementById("queso")
-	var formElement = document.createElement("select");
-	var white = document.createElement("option");
-	var red = document.createElement("option");
-	var green = document.createElement("option");
-	formElement.appendChild(white);
-	formElement.appendChild(red);
-	formElement.appendChild(green);
-	table_row.appendChild(formElement);
+var letters = 10;
+
+var table_row = document.getElementById("word_form");
+var formElement = document.getElementById("select0");
+var letter = document.getElementById("select0_letter");
+for(var i=1;i<letters;i++){
+    var aux_form = formElement.cloneNode(true);
+    var aux_letter = letter.cloneNode(true);
+    aux_form.id = "select"+i;
+    aux_letter.id = "select"+i+"_letter";
+    table_row.appendChild(aux_letter);
+    table_row.appendChild(aux_form);
 }
 
-function removeLetter(){
-	var table_row = document.getElementById("queso");
-	if(table_row.children.length > 1){
-		table_row.removeChild(table_row.lastElementChild);
+for(var i=0;i<letters;i++){
+	$("#select"+i).ddslick({
+        width:"100%",
+        imagePosition:"left",
+        selectedText:"test¿",
+        onSelected: function(data){
+        	$(("#"+data.original.context.id+"_letter")).html(data.selectedData.value);
+        }
+	});
+	document.getElementById("select"+i).hidden = true;
+}
+document.getElementById("select0").hidden = false;
+
+function addLetter(){
+	var letterNum = document.getElementById("letterNum"); 
+	var aux = parseInt(letterNum.value);
+	if(aux < letters){
+		document.getElementById("select"+aux).hidden = false;
+		letterNum.value = aux+1;
 	}
 }
 
-addLetter()
+function removeLetter(){
+	var letterNum = document.getElementById("letterNum"); 
+	var aux = parseInt(letterNum.value);
+	if(aux > 1){
+		document.getElementById("select"+(aux-1)).hidden = true;
+		letterNum.value = aux-1;
+	}
+}
