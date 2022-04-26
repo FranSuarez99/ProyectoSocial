@@ -10,12 +10,61 @@ drive = GoogleDrive(tugfa)
 #file1.SetContentString('Hello World! P de Prueba') # Set content of the file from given string.
 #file1.Upload()
 
+def dFile(id,fileN):
+	"""
+	input:un id que hace referencia al id del archivo en drive y un fileN que es el nombre deo archivo en drive
+	output: el contenido separado por linea del archivo guardado en drive
+	"""
+	download_file = drive.CreateFile({'id': id})
+	download_file.GetContentFile(fileN)
+	content = download_file.GetContentString().strip().split() 
+	return content
+
+def getSolution(c):
+	"""
+	input: la solucion c sin procesar de una palabra
+	oútput: la lista separada por , de la solucion
+	"""
+	return c.split(',')
+
+def posWord(words,p):return  words.index(p)
+
+
+def sPalabra(w,s,d,i,words):
+	global wordsID,solutionsID,difficultyID,imgSource
+
+	"""
+	Input: Recibe una string w de la palobra en cuestion
+	una lista l de n posiciones donde n es el numero de sonidos en la palabra,
+	cada poscion en L hace referencia a un tipo de sonido (consonante, vocal, vocal tónica, rr o ñ),
+	una dificultad d de la palabra y el nombre de la imagen i de la palabra.
+	output: guarda el archivo actualizado
+	"""
+	if w not in words:
+    ans = None
+
+
+
+
+
+def evaluate(w,s,words):
+	"""
+	n = posword(words,w)
+	sol = getSolution(words[n])
+	"""
+  ans = None
+
+
+
+
+
+
 fileName1 = 'words.txt'
 fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
 fileName4 = 'imgSource.txt'
 
-wordsID, solutionsID, difficultyID, imgSourceID = 0, 0, 0, 0
+wordsID, solutionsID, difficultyID, imgSourceID = None, None, None, None
 
 file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
 for file1 in file_list:#check every file on Drive and saves the ID of the needed files
@@ -29,18 +78,16 @@ for file1 in file_list:#check every file on Drive and saves the ID of the needed
   if file1['title'] == fileName4:
       imgSourceID = file1['id']
 
-words = drive.CreateFile({'id': wordsID})
-words.GetContentFile('words.txt')
-words = words.GetContentString().strip().split()#list of words
 
-solutions = drive.CreateFile({'id': solutionsID})
-solutions.GetContentFile('solutions.txt')
-solutions = solutions.GetContentString().strip().split()#list of solutions
 
-difficulty = drive.CreateFile({'id': difficultyID})
-difficulty.GetContentFile('difficulty.txt')
-difficulty = difficulty.GetContentString().strip().split()#list of difficulty
 
-imgSource = drive.CreateFile({'id': imgSourceID})
-imgSource.GetContentFile('imgSource.txt')
-imgSource = imgSource.GetContentString().strip().split()#list of images sources
+words = dFile(wordsID,fileName1)
+solutions = dFile(solutionsID,fileName2)
+difficulty = dFile(difficultyID,fileName3)
+imgSource = dFile(imgSourceID,fileName4)
+
+
+"""
+word[0]
+solutions[0]
+d[0]"""
