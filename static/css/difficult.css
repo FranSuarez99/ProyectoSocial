@@ -57,7 +57,7 @@ table td {
 #dif {
     background-color: white;
     border-radius: 7px;
-    width: 100%;
+    width: 60%;
     height: 100%;
     padding: 5px 0px 5px 0px;
     margin: 20px 0px 20px 0px;
@@ -69,5 +69,5 @@ option {
 }
 
 #difficult_form {
-    width: 50%;
+    width: 100%;
 }
