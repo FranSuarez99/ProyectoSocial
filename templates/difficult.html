@@ -9,35 +9,26 @@
 
 <body>
     <div class="row h-100 justify-content-center align-items-center" id="BlackImg">
-        <div class="row justify-content-center align-items-center" id="loginDiv">
-            <form method="POST" action="/">
-                <div class="row justify-content-center w-100">
-                    <table id="logint">
-                        <tr>
-                            <td><img src="../static/images/INCS.png" id="logo"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="user" placeholder="Usuario" id="user" required></td>
-                        </tr>
-                        <tr>
-                            <td><input type="password" name="pass" placeholder="Contraseña" id="password" required></td>
-                        </tr>
-                        <tr>
-                            <td><input type="submit" value="Iniciar sesión" id="login" name="b1"></td>
-                        </tr>
-            </form>
-            <tr>
-                <td>
-                    <div class="">
-                        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-                        <p>{{ message }}</p>
-                        {% endfor %} {% endif %} {% endwith %}
-                    </div>
-                </td>
-            </tr>
-            </table>
+        <div class="row justify-content-center align-items-center" id="selectorDiv">
+            
+            <div class="row justify-content-center align-items-center">
+                <img src="../static/images/INCS.png" id="logo">
             </div>
-            </form>
+            <div class="row justify-content-center align-items-center">
+                <h5 style="padding-top: 10px;">¡Selecciona la dificultad!</h5>
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <form id="difficult_form">
+                    <select id="dif">
+                        <option value="0">Fácil</option>
+                        <option value="1">Intermedio</option>
+                        <option value="2">Difícil</option>
+                    </select>
+                </form>
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <button class="send_dif" form>¡Empecemos!</button>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
