@@ -1,6 +1,5 @@
 import requests, csv, sys, os
 from flask import *
-from correo import enviar_correo
 
 master_password = 'incs2022'
 
@@ -20,7 +19,7 @@ def index_view():
         if request.form["btn"] == "Soy Profesor":
             return redirect(url_for('login_view'))
         if request.form["btn"] == "!Comencemos!":
-            pass
+            return redirect(url_for('game_view'))
     return render_template('index.html')
 
 #VISTA LOGIN PROFESOR
@@ -30,12 +29,15 @@ def login_view():
         password = request.form['pass']
         if request.form["btn"] == "Iniciar sesión":
             pass
-        if request.form["btn"] == "Recordar Contraseña":
-            usr_email = None #se pone el correo del incs
-            m = f"Tu contrasena es {master_password}"
-            enviar_correo(usr_email, "Recuperacion contrasena", m)
-            flash("Tu contrasena ha sido enviada a tu correo")
     return render_template('login.html')
+
+#VISTA JUEGO NINO
+@app.route('/game', methods=['GET', 'POST'])
+def game_view():
+    if request.method == 'POST':
+        pass
+
+    return render_template('game.html')
 
 if __name__ == "__main__":
     app.debug = True
