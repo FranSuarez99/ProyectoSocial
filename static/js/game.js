@@ -1,5 +1,5 @@
 
-var letters = 10; //Number of letters in the word
+var letters = 10; //Max number of letters in a word
 
 var table_row = document.getElementById("word_form");
 var formElement = document.getElementById("select0");
@@ -9,6 +9,7 @@ for(var i=1;i<letters;i++){ //Adds the letters
     var aux_letter = letter.cloneNode(true);
     aux_form.id = "select"+i;
     aux_letter.id = "select"+i+"_letter";
+    aux_letter.name = "select"+i+"_letter";
     table_row.appendChild(aux_letter);
     table_row.appendChild(aux_form);
 }
