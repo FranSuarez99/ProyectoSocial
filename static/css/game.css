@@ -37,7 +37,7 @@
     padding: 2% 0% 2% 0%;
 }
 
-#btn_enviar, #mas, #menos {
+button {
     width: 17%;
     height: 10%;
     background-color: #66A9D9 !important;

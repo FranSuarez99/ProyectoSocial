@@ -24,6 +24,9 @@
             <button class="btn btn-primary" id="mas" onclick="addLetter();">+</button>
         </div>
         <div class="row justify-content-center align-items-center">
+            <form class="" action="/game" method="post" id="word_form">
+                <input type="hidden" id="letterNum" name="letterNum" value="1">
+                <input type="hidden" id="select0_letter" name="select0_letter">
                 <select id="select0" class="slick">
                     <option value="0" data-description="" data-imagesrc="../static/images/white.png"></option>
                     <option value="1" data-description="" data-imagesrc="../static/images/red.png"></option>
@@ -33,9 +36,9 @@
             </form>
         </div>
         <div class="row justify-content-center align-items-center">
-          <form action="/game" id="word_form">
-            <input id="btn_enviar" type= "submit" value="¡Enviar!" name="btn" >
-          </form>
+            <form class="" action="/game" method="post" id="word_form">
+              <input id="enviar" type= "submit" value="¡Enviar!" name="btn" >
+            </form>
         </div>
 
 
