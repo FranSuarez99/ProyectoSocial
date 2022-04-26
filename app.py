@@ -18,6 +18,8 @@ def index_view():
     if request.method == 'POST':
         if request.form["btn"] == "Soy Profesor":
             return redirect(url_for('login_view'))
+        if request.form["btn"] == "!Comencemos!":
+            return redirect(url_for('game_view'))
     return render_template('index.html')
 
 #VISTA LOGIN PROFESOR
@@ -28,6 +30,17 @@ def login_view():
         if request.form["btn"] == "Iniciar sesión":
             pass
     return render_template('login.html')
+
+#VISTA JUEGO NINO
+@app.route('/game', methods=['GET', 'POST'])
+def game_view():
+    if request.method == 'POST':
+        if request.form["btn"] == "¡Enviar!":
+            num_sounds = request.form.get("letterNum")
+            file = open("salida.txt", "a")
+            file.write(str(num_sounds)+"\n")
+            file.close()
+    return render_template('game.html')
 
 if __name__ == "__main__":
     app.debug = True

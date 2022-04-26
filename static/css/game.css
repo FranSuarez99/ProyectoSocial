@@ -51,6 +51,24 @@ button {
     box-shadow: 0px 8px 15px rgba(0, 0, 0, .4);
 }
 
+#enviar{
+    width: 120px;
+    height: 60px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #66A9D9 !important;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+    border-color: #66A9D9 !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, .4);
+}
+
 
 .dd-container {
     display: inline-block;
