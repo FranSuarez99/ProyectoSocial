@@ -15,11 +15,11 @@ fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
 fileName4 = 'imgSource.txt'
 
-wordsID, solutionsID, difficultyID, imgSource = 0, 0, 0, 0
+wordsID, solutionsID, difficultyID, imgSourceID = 0, 0, 0, 0
 
 file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
-for file1 in file_list:
-  print('title: %s, id: %s' % (file1['title'], file1['id']))
+for file1 in file_list:#check every file on Drive and saves the ID of the needed files
+  #print('title: %s, id: %s' % (file1['title'], file1['id']))
   if file1['title'] == fileName1:
       wordsID = file1['id']
   if file1['title'] == fileName2:
@@ -27,11 +27,20 @@ for file1 in file_list:
   if file1['title'] == fileName3:
       difficultyID = file1['id']
   if file1['title'] == fileName4:
-      imgSource = file1['id']
+      imgSourceID = file1['id']
+
 words = drive.CreateFile({'id': wordsID})
-words.GetContentFile('palabras.txt')
-content = words.GetContentString().strip().split()
+words.GetContentFile('words.txt')
+words = words.GetContentString().strip().split()#list of words
 
-print(content)
+solutions = drive.CreateFile({'id': solutionsID})
+solutions.GetContentFile('solutions.txt')
+solutions = solutions.GetContentString().strip().split()#list of solutions
 
-#prueba commit suribe
+difficulty = drive.CreateFile({'id': difficultyID})
+difficulty.GetContentFile('difficulty.txt')
+difficulty = difficulty.GetContentString().strip().split()#list of difficulty
+
+imgSource = drive.CreateFile({'id': imgSourceID})
+imgSource.GetContentFile('imgSource.txt')
+imgSource = imgSource.GetContentString().strip().split()#list of images sources
