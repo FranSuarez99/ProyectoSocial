@@ -12,14 +12,13 @@
         <nav class="navbar navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"> <img src="../static/images/INCS.png" id="logo"></a>
-                <h4 style="color: #66A9D9;">Método Invariante</h4>
-                <button class="btn btn-primary">Soy profesor</button>
+                <h4 style="color: #66A9D9; display: flex;">Método Invariante</h4>
             </div>
 
         </nav>
 
         <div class="row justify-content-center align-items-center" id="imagen">
-            <img src="../static/images/hahayes.png" style="height: 500px;"> <!-- Revisar tamaño -->
+            <img src="../static/images/" style="height: 500px;"> <!-- Change image, check width -->
         </div>
         <div class="row justify-content-center align-items-center">
             <button class="btn btn-primary" id="menos" onclick="removeLetter();">-</button>
@@ -27,8 +26,8 @@
         </div>
         <div class="row justify-content-center align-items-center">
             <form id="word_form">
-                <input type="hidden" id="letterNum" value="1">
-                <input type="hidden" id="select0_letter">
+                <input type="hidden" id="letterNum" name="letterNum" value="1">
+                <input type="hidden" id="select0_letter" name="select0_letter">
                 <select id="select0" class="slick">
                     <option value="0" data-description="" data-imagesrc="../static/images/white.png"></option>
                     <option value="1" data-description="" data-imagesrc="../static/images/red.png"></option>

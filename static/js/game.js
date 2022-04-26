@@ -1,19 +1,20 @@
 
-var letters = 10;
+var letters = 10; //Max number of letters in a word
 
 var table_row = document.getElementById("word_form");
 var formElement = document.getElementById("select0");
 var letter = document.getElementById("select0_letter");
-for(var i=1;i<letters;i++){
+for(var i=1;i<letters;i++){ //Adds the letters
     var aux_form = formElement.cloneNode(true);
     var aux_letter = letter.cloneNode(true);
     aux_form.id = "select"+i;
     aux_letter.id = "select"+i+"_letter";
+    aux_letter.name = "select"+i+"_letter";
     table_row.appendChild(aux_letter);
     table_row.appendChild(aux_form);
 }
 
-for(var i=0;i<letters;i++){
+for(var i=0;i<letters;i++){ //Transforms each select to a div using Slick jQuery plugin
 	$("#select"+i).ddslick({
         width:"100%",
         imagePosition:"left",
