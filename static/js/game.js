@@ -1,7 +1,7 @@
 
 var letters = 10; //Max number of letters in a word
 
-var table_row = document.getElementById("word_form");
+var table_row = document.getElementById("div_select");
 var formElement = document.getElementById("select0");
 var letter = document.getElementById("select0_letter");
 for(var i=1;i<letters;i++){ //Adds the letters
@@ -28,7 +28,7 @@ for(var i=0;i<letters;i++){ //Transforms each select to a div using Slick jQuery
 document.getElementById("select0").hidden = false;
 
 function addLetter(){
-	var letterNum = document.getElementById("letterNum"); 
+	var letterNum = document.getElementById("letterNum");
 	var aux = parseInt(letterNum.value);
 	if(aux < letters){
 		document.getElementById("select"+aux).hidden = false;
@@ -37,7 +37,7 @@ function addLetter(){
 }
 
 function removeLetter(){
-	var letterNum = document.getElementById("letterNum"); 
+	var letterNum = document.getElementById("letterNum");
 	var aux = parseInt(letterNum.value);
 	if(aux > 1){
 		document.getElementById("select"+(aux-1)).hidden = true;

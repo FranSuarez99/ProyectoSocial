@@ -26,10 +26,16 @@ def index_view():
 @app.route('/login', methods=['GET', 'POST'])
 def login_view():
     if request.method == 'POST':
-        password = request.form['pass']
         if request.form["btn"] == "Iniciar sesión":
-            pass
+            password = request.form['pass']
+            if password == master_password:
+                return redirect(url_for('new_word_view'))
     return render_template('login.html')
+
+#VISTA NUEVA PALABRA
+@app.route('/palabra', methods=['GET', 'POST'])
+def new_word_view():
+    return render_template('new_word.html')
 
 #VISTA JUEGO NINO
 @app.route('/game', methods=['GET', 'POST'])
@@ -37,9 +43,6 @@ def game_view():
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = request.form.get("letterNum")
-            file = open("salida.txt", "a")
-            file.write(str(num_sounds)+"\n")
-            file.close()
     return render_template('game.html')
 
 if __name__ == "__main__":
