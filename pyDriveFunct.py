@@ -1,10 +1,10 @@
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
+#from pydrive.auth import GoogleAuth
+#from pydrive.drive import GoogleDrive
 
-tugfa = GoogleAuth()
-tugfa.LocalWebserverAuth()
+#authG = GoogleAuth()
+#authG.LocalWebserverAuth()
 
-drive = GoogleDrive(tugfa)
+#drive = GoogleDrive(authG)
 
 #file1 = drive.CreateFile({'title': 'HelloP.txt'})  # Create GoogleDriveFile instance with title 'Hello.txt'.
 #file1.SetContentString('Hello World! P de Prueba') # Set content of the file from given string.
@@ -22,10 +22,11 @@ def dFile(id,fileN):
 
 def getSolution(c):
 	"""
-	input: la solucion c sin procesar de una palabra
-	oútput: la lista separada por , de la solucion
+	input: una palabra
+	output: la solucion
 	"""
-	return c.split(',')
+	
+	return 
 
 def posWord(words,p):return  words.index(p)
 
@@ -36,7 +37,7 @@ def sPalabra(w,s,d,i,words):
 	"""
 	Input: Recibe una string w de la palobra en cuestion
 	una lista l de n posiciones donde n es el numero de sonidos en la palabra,
-	cada poscion en L hace referencia a un tipo de sonido (consonante, vocal, vocal tónica, rr o ñ),
+	cada poscion en L hace referencia a un tipo de sonido (consonante, vocal, vocal tonica, rr o ñ),
 	una dificultad d de la palabra y el nombre de la imagen i de la palabra.
 	output: guarda el archivo actualizado
 	"""
@@ -58,7 +59,7 @@ def evaluate(w,s,words):
 
 
 
-
+"""
 fileName1 = 'words.txt'
 fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
@@ -87,7 +88,7 @@ difficulty = dFile(difficultyID,fileName3)
 imgSource = dFile(imgSourceID,fileName4)
 
 
-"""
 word[0]
 solutions[0]
-d[0]"""
+d[0]
+"""

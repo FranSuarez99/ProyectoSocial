@@ -1,11 +1,47 @@
+from pydrive.drive import GoogleDrive
+from pydrive.auth import GoogleAuth
 import requests, csv, sys, os
 from flask import *
+
+from pyDriveFunct import *
 
 master_password = 'incs2022'
 
 #Configuramos la app de flask
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+authG = GoogleAuth()
+authG.LocalWebserverAuth()
+
+drive = GoogleDrive(authG)
+
+fileName1 = 'words.txt'
+fileName2 = 'solutions.txt'
+fileName3 = 'difficulty.txt'
+fileName4 = 'imgSource.txt'
+
+wordsID, solutionsID, difficultyID, imgSourceID = None, None, None, None
+
+file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
+for file1 in file_list:#check every file on Drive and saves the ID of the needed files
+  #print('title: %s, id: %s' % (file1['title'], file1['id']))
+  if file1['title'] == fileName1:
+      wordsID = file1['id']
+  if file1['title'] == fileName2:
+      solutionsID = file1['id']
+  if file1['title'] == fileName3:
+      difficultyID = file1['id']
+  if file1['title'] == fileName4:
+      imgSourceID = file1['id']
+
+
+
+
+words = dFile(wordsID,fileName1)
+solutions = dFile(solutionsID,fileName2)
+difficulty = dFile(difficultyID,fileName3)
+imgSource = dFile(imgSourceID,fileName4)
 
 @app.route('/set/')
 def set():
