@@ -10,15 +10,15 @@
     <div class="row h-100 justify-content-center align-items-center" id="BlackImg">
         <div class="row justify-content-center align-items-center" id="loginDiv">
             <div class="row justify-content-center w-100">
-                <form id="word_form" action="/game" method="post">
+                <form id="word_form" action="/palabra" method="post">
                     <table>
                         <tr><td><img src="../static/images/INCS.png" id="logo"></td></tr>
                         <tr><td><input type="text" name="palabra" placeholder="Palabra" id="palabra" required></td></tr>
                         <tr>
                             <td>
                                 <div class="row justify-content-center align-items-center">
-                                    <button class="btn btn-primary" id="menos" onclick="removeLetter();">-</button>
-                                    <button class="btn btn-primary" id="mas" onclick="addLetter();">+</button>
+                                    <button type="button" class="btn btn-primary" id="menos" name="menos" onclick="removeLetter();">-</button>
+                                    <button  type="button" class="btn btn-primary" id="mas" name="mas" onclick="addLetter();">+</button>
                                 </div>
                                     <div class="row justify-content-center align-items-center" id="div_select">
                                         <input type="hidden" id="letterNum" name="letterNum" value="1">
