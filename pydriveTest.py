@@ -23,7 +23,7 @@ def dFile(id,fileN):
 def getSolution(c):
 	"""
 	input: la solucion c sin procesar de una palabra
-	oútput: la lista separada por , de la solucion
+	output: la lista separada por , de la solucion
 	"""
 	return c.split(',')
 
@@ -36,7 +36,7 @@ def sPalabra(w,s,d,i,words):
 	"""
 	Input: Recibe una string w de la palobra en cuestion
 	una lista l de n posiciones donde n es el numero de sonidos en la palabra,
-	cada poscion en L hace referencia a un tipo de sonido (consonante, vocal, vocal tónica, rr o ñ),
+	cada poscion en L hace referencia a un tipo de sonido (consonante, vocal, vocal tonica, rr o ñ),
 	una dificultad d de la palabra y el nombre de la imagen i de la palabra.
 	output: guarda el archivo actualizado
 	"""
