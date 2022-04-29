@@ -51,20 +51,17 @@ def difficult_select():
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
     difficult = session.get('difficult', None)
+    word = None #palabra
     photo_source = None
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
-            file = open("salida.txt", "a")
-            file.write(f'{num_sounds}\n')
             child_solution = []
             for i in range(num_sounds):
                 name_box = f'select{i}_letter'
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
-            file.write(f'{child_solution}\n')
-            file.close()
-            #revisar solucion del nino
+
     return render_template('game.html', photo_source=photo_source)
 
 if __name__ == "__main__":
