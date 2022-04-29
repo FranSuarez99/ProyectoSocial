@@ -1,31 +1,30 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 import requests, csv, sys, os
+import numpy as np
 from flask import *
 
 from pyDriveFunct import *
 
 master_password = 'incs2022'
-
-#Configuramos la app de flask
-app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
-authG = GoogleAuth()
-authG.LocalWebserverAuth()
-
-drive = GoogleDrive(authG)
-
 fileName1 = 'words.txt'
 fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
 fileName4 = 'imgSource.txt'
 
+#Configuramos la app de flask
+app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+#Configuracion con Google Drive
+authG = GoogleAuth()
+authG.LocalWebserverAuth()
+drive = GoogleDrive(authG)
+
 wordsID, solutionsID, difficultyID, imgSourceID = None, None, None, None
 
 file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
 for file1 in file_list:#check every file on Drive and saves the ID of the needed files
-  #print('title: %s, id: %s' % (file1['title'], file1['id']))
   if file1['title'] == fileName1:
       wordsID = file1['id']
   if file1['title'] == fileName2:
@@ -35,13 +34,10 @@ for file1 in file_list:#check every file on Drive and saves the ID of the needed
   if file1['title'] == fileName4:
       imgSourceID = file1['id']
 
-
-
-
-words = dFile(wordsID,fileName1)
-solutions = dFile(solutionsID,fileName2)
-difficulty = dFile(difficultyID,fileName3)
-imgSource = dFile(imgSourceID,fileName4)
+words = dFile(wordsID,fileName1, drive)
+difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
+solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
+imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
 
 @app.route('/set/')
 def set():
@@ -87,7 +83,7 @@ def difficult_select():
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
     difficult = session.get('difficult', None)
-    word = None #palabra
+    word = 'PALOMA' #palabra
     photo_source = None
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
@@ -97,7 +93,10 @@ def game_view():
                 name_box = f'select{i}_letter'
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
-
+            ans = (child_solution == solutions[word])
+            file = open("salida.txt", "a")
+            file.write(str(ans)+"\n")
+            file.close()
     return render_template('game.html', photo_source=photo_source)
 
 if __name__ == "__main__":
