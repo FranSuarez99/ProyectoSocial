@@ -1,10 +1,10 @@
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
+#from pydrive.auth import GoogleAuth
+#from pydrive.drive import GoogleDrive
 
-authG = GoogleAuth()
-authG.LocalWebserverAuth()
+#authG = GoogleAuth()
+#authG.LocalWebserverAuth()
 
-drive = GoogleDrive(authG)
+#drive = GoogleDrive(authG)
 
 #file1 = drive.CreateFile({'title': 'HelloP.txt'})  # Create GoogleDriveFile instance with title 'Hello.txt'.
 #file1.SetContentString('Hello World! P de Prueba') # Set content of the file from given string.
@@ -22,10 +22,11 @@ def dFile(id,fileN):
 
 def getSolution(c):
 	"""
-	input: la solucion c sin procesar de una palabra
-	output: la lista separada por , de la solucion
+	input: una palabra
+	output: la solucion
 	"""
-	return c.split(',')
+	
+	return 
 
 def posWord(words,p):return  words.index(p)
 
@@ -58,7 +59,7 @@ def evaluate(w,s,words):
 
 
 
-
+"""
 fileName1 = 'words.txt'
 fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
@@ -87,7 +88,7 @@ difficulty = dFile(difficultyID,fileName3)
 imgSource = dFile(imgSourceID,fileName4)
 
 
-"""
 word[0]
 solutions[0]
-d[0]"""
+d[0]
+"""
