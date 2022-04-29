@@ -16,7 +16,7 @@
 }
 
 #menos {
-    border-bottom-left-radius: 20px; 
+    border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
@@ -25,7 +25,7 @@
 }
 
 #mas {
-    border-bottom-left-radius: 0px; 
+    border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
@@ -51,22 +51,30 @@ button {
     box-shadow: 0px 8px 15px rgba(0, 0, 0, .4);
 }
 
+#enviar{
+    width: 120px;
+    height: 60px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #66A9D9 !important;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+    border-color: #66A9D9 !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, .4);
+}
+
 
 .dd-container {
     display: inline-block;
     width: 125px !important;
     height: 100% !important;
     padding: 25px 10px;
-    border-radius: 50px;
-}
-
-.dd-select {
-    border-radius: 15px !important;
-    background-color: rgb(255,255,255,0) !important;
-}
-
-.dd-options {
-    border-radius: 15px !important;
 }
 
 .dropbtn {

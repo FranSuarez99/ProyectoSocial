@@ -3,7 +3,7 @@ html {
     background-size: cover;
 }
 
-#selectorDiv {
+#loginDiv {
     background-color: white;
     width: 30%;
     left: 50%;
@@ -16,7 +16,25 @@ html {
     width: 30%;
 }
 
-.send_dif {
+input[type=text] {
+    width: 100%;
+    padding: 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+input[type=password] {
+    width: 100%;
+    padding: 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+input[type=submit] {
     width: 100%;
     background-color: #66A9D9;
     color: white;
@@ -48,26 +66,12 @@ table td {
     padding: 7px 7px;
 }
 
-.row {
+#logint {
     width: 100%;
+    align-content: center;
+}
+
+.row {
     margin-right: 0px !important;
     margin-left: 0px !important;
-}
-
-#dif {
-    background-color: white;
-    border-radius: 7px;
-    width: 60%;
-    height: 100%;
-    padding: 5px 0px 5px 0px;
-    margin: 20px 0px 20px 0px;
-    font-size: 20px;
-}
-
-option {
-    font-size: 20px;
-}
-
-#difficult_form {
-    width: 100%;
 }
