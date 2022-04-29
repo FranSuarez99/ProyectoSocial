@@ -19,7 +19,7 @@ def index_view():
         if request.form["btn"] == "Soy Profesor":
             return redirect(url_for('login_view'))
         if request.form["btn"] == "!Comencemos!":
-            return redirect(url_for('game_view'))
+            return redirect(url_for('difficult_select'))
     return render_template('index.html')
 
 #VISTA LOGIN PROFESOR
@@ -37,13 +37,35 @@ def login_view():
 def new_word_view():
     return render_template('new_word.html')
 
+#VISTA SELECCION DIFICULTAD
+@app.route('/start', methods=['GET', 'POST'])
+def difficult_select():
+    if request.method == 'POST':
+        if request.form["btn"] == "¡Empecemos!":
+            difficult = str(request.form.get('dif'))
+            session['difficult'] = difficult
+            return redirect(url_for('game_view'))
+    return render_template('difficult.html')
+
 #VISTA JUEGO NINO
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
+    difficult = session.get('difficult', None)
+    photo_source = None
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
-            num_sounds = request.form.get("letterNum")
-    return render_template('game.html')
+            num_sounds = int(request.form.get("letterNum"))
+            file = open("salida.txt", "a")
+            file.write(f'{num_sounds}\n')
+            child_solution = []
+            for i in range(num_sounds):
+                name_box = f'select{i}_letter'
+                sound = int(request.form.get(name_box))
+                child_solution.append(sound)
+            file.write(f'{child_solution}\n')
+            file.close()
+            #revisar solucion del nino
+    return render_template('game.html', photo_source=photo_source)
 
 if __name__ == "__main__":
     app.debug = True

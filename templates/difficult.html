@@ -10,23 +10,23 @@
 <body>
     <div class="row h-100 justify-content-center align-items-center" id="BlackImg">
         <div class="row justify-content-center align-items-center" id="selectorDiv">
-            
+
             <div class="row justify-content-center align-items-center">
                 <img src="../static/images/INCS.png" id="logo">
             </div>
             <div class="row justify-content-center align-items-center">
                 <h5 style="padding-top: 10px;">¡Selecciona la dificultad!</h5>
             </div>
-            <form id="difficult_form">
+            <form action="/start" id="difficult_form" method="post">
                 <div class="row justify-content-center align-items-center">
-                        <select id="dif">
+                        <select name='dif' id="dif">
                             <option value="0">Fácil</option>
                             <option value="1">Intermedio</option>
                             <option value="2">Difícil</option>
                         </select>
                 </div>
                 <div class="row justify-content-center align-items-center">
-                    <button class="send_dif" form>¡Empecemos!</button>
+                    <input type= "submit" class="send_dif" value="¡Empecemos!" name="btn">
                 </div>
             </form>
         </div>
