@@ -1,10 +1,10 @@
 
 var letters = 10; //Max number of letters in a word
 
-var table_row = document.getElementById("div_select");
-var formElement = document.getElementById("select0");
-var letter = document.getElementById("select0_letter");
-for(var i=1;i<letters;i++){ //Adds the letters
+var table_row = document.getElementById("div_select"); // selects container
+var formElement = document.getElementById("select0"); // select to copy
+var letter = document.getElementById("select0_letter"); // input where the value will be saved
+for(var i=1;i<letters;i++){ //Adds the letters (Copy and paste the selects)
     var aux_form = formElement.cloneNode(true);
     var aux_letter = letter.cloneNode(true);
     aux_form.id = "select"+i;
@@ -27,7 +27,7 @@ for(var i=0;i<letters;i++){ //Transforms each select to a div using Slick jQuery
 }
 document.getElementById("select0").hidden = false;
 
-function addLetter(){
+function addLetter(){ // show the last hidden select
 	var letterNum = document.getElementById("letterNum");
 	var aux = parseInt(letterNum.value);
 	if(aux < letters){
@@ -36,7 +36,7 @@ function addLetter(){
 	}
 }
 
-function removeLetter(){
+function removeLetter(){ // hide the last shown select 
 	var letterNum = document.getElementById("letterNum");
 	var aux = parseInt(letterNum.value);
 	if(aux > 1){
