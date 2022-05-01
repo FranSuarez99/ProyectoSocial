@@ -1,7 +1,6 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 import requests, csv, sys, os
-from random import shuffle
 from flask import *
 
 from pyDriveFunct import *
@@ -74,9 +73,12 @@ def new_word_view():
 def difficult_select():
     if request.method == 'POST':
         if request.form["btn"] == "¡Empecemos!":
-            difficult = str(request.form.get('dif'))
+            difficult = int(str(request.form.get('dif')))
             session['difficult'] = difficult
-            wordsList = getWords(difficult, words)
+            wordsList = getWords(difficult, difficulty)
+            file = open("salidaXD.txt", "a")
+            file.write(str(difficulty)+"\n")
+            file.close()
             session['wordsList'] = wordsList
             return redirect(url_for('game_view'))
     return render_template('difficult.html')
