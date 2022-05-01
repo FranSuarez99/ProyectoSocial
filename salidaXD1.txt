@@ -1,4 +1,4 @@
-[]
-dict_items([('PALOMA', 0), ('GLORIA', 1), ('AUTOMOVIL', 2)])
-[]
-['PALOMA']
+['PALOMA', 'GLORIA']
+['PALOMA', 'GLORIA']
+['PALOMA', 'GLORIA']
+['PALOMA', 'GLORIA']
