@@ -74,7 +74,7 @@ def new_word_view():
 def difficult_select():
     if request.method == 'POST':
         if request.form["btn"] == "¡Empecemos!":
-            difficult = str(request.form.get('dif'))
+            difficult = int(request.form.get('dif'))
             session['difficult'] = difficult
             return redirect(url_for('game_view'))
     return render_template('difficult.html')
