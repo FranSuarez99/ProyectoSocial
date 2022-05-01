@@ -1,4 +1,0 @@
-['PALOMA', 'GLORIA']
-['PALOMA', 'GLORIA']
-['PALOMA', 'GLORIA']
-['PALOMA', 'GLORIA']
