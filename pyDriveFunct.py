@@ -23,8 +23,5 @@ def sPalabra(w,s,d,i,words):
 
 def getWords(d, difficulty):
 	wordsD = [word for word, diff in difficulty.items() if diff == d]
-	file = open("salidaXD1.txt", "a")
-	file.write(str(wordsD)+"\n")
-	file.close()
 	shuffle(wordsD)
 	return wordsD

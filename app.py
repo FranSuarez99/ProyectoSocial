@@ -91,9 +91,6 @@ def game_view():
         wordsList = getWords(difficult, difficulty)
         word = wordsList.pop()
     session['wordsList'] = wordsList
-    file = open("salidaW.txt", "a")
-    file.write(str(word)+"\n")
-    file.close()
     photo_source = None
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
@@ -104,9 +101,9 @@ def game_view():
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
             ans = (child_solution == solutions[word])
-            file = open("salida.txt", "a")
-            file.write(str(ans)+"\n")
-            file.close()
+            #file = open("salida.txt", "a")
+            #file.write(str(ans)+"\n")
+            #file.close()
     return render_template('game.html', photo_source=photo_source)
 
 if __name__ == "__main__":
