@@ -19,3 +19,8 @@ def sPalabra(w,s,d,i,words):
 	"""
 	if w not in words:
 		ans = None
+
+def getWords(d, words):
+	ans = [i for i,j in words.items() if j == d]
+	shuffle(ans)
+	return ans

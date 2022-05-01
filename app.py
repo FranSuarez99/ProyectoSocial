@@ -1,6 +1,7 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 import requests, csv, sys, os
+from random import shuffle
 import numpy as np
 from flask import *
 
@@ -76,6 +77,8 @@ def difficult_select():
         if request.form["btn"] == "¡Empecemos!":
             difficult = str(request.form.get('dif'))
             session['difficult'] = difficult
+            wordsList = getWords(difficult, words)
+            session['wordsList'] = wordsList
             return redirect(url_for('game_view'))
     return render_template('difficult.html')
 
@@ -83,7 +86,9 @@ def difficult_select():
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
     difficult = session.get('difficult', None)
-    word = 'PALOMA' #palabra
+    wordsList = session.get('wordsList', None)
+    word = wordsList.pop()
+    session['wordsList'] = wordsList
     photo_source = None
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
