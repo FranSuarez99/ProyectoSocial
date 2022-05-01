@@ -1,7 +1,6 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 import requests, csv, sys, os
-import numpy as np
 from flask import *
 
 from pyDriveFunct import *
@@ -76,6 +75,8 @@ def difficult_select():
         if request.form["btn"] == "¡Empecemos!":
             difficult = int(request.form.get('dif'))
             session['difficult'] = difficult
+            wordsList = getWords(difficult, difficulty)
+            session['wordsList'] = wordsList
             return redirect(url_for('game_view'))
     return render_template('difficult.html')
 
@@ -83,7 +84,16 @@ def difficult_select():
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
     difficult = session.get('difficult', None)
-    word = 'PALOMA' #palabra
+    wordsList = session.get('wordsList', None)
+    if len(wordsList) != 0:
+        word = wordsList.pop()
+    else:
+        wordsList = getWords(difficult, difficulty)
+        word = wordsList.pop()
+    session['wordsList'] = wordsList
+    file = open("salidaW.txt", "a")
+    file.write(str(word)+"\n")
+    file.close()
     photo_source = None
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
