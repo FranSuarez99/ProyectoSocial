@@ -2,7 +2,6 @@ from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 import requests, csv, sys, os
 from random import shuffle
-import numpy as np
 from flask import *
 
 from pyDriveFunct import *
