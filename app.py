@@ -1,31 +1,29 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
-import requests, csv, sys, os
+import requests, sys
 from flask import *
 
 from pyDriveFunct import *
 
 master_password = 'incs2022'
-
-#Configuramos la app de flask
-app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
-authG = GoogleAuth()
-authG.LocalWebserverAuth()
-
-drive = GoogleDrive(authG)
-
 fileName1 = 'words.txt'
 fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
 fileName4 = 'imgSource.txt'
 
+#Configuramos la app de flask
+app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+#Configuracion con Google Drive
+authG = GoogleAuth()
+authG.LocalWebserverAuth()
+drive = GoogleDrive(authG)
+
 wordsID, solutionsID, difficultyID, imgSourceID = None, None, None, None
 
 file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
 for file1 in file_list:#check every file on Drive and saves the ID of the needed files
-  #print('title: %s, id: %s' % (file1['title'], file1['id']))
   if file1['title'] == fileName1:
       wordsID = file1['id']
   if file1['title'] == fileName2:
@@ -35,13 +33,10 @@ for file1 in file_list:#check every file on Drive and saves the ID of the needed
   if file1['title'] == fileName4:
       imgSourceID = file1['id']
 
-
-
-
-words = dFile(wordsID,fileName1)
-solutions = dFile(solutionsID,fileName2)
-difficulty = dFile(difficultyID,fileName3)
-imgSource = dFile(imgSourceID,fileName4)
+words = dFile(wordsID,fileName1, drive)
+difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
+solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
+imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
 
 @app.route('/set/')
 def set():
@@ -78,8 +73,10 @@ def new_word_view():
 def difficult_select():
     if request.method == 'POST':
         if request.form["btn"] == "¡Empecemos!":
-            difficult = str(request.form.get('dif'))
+            difficult = int(request.form.get('dif'))
             session['difficult'] = difficult
+            wordsList = getWords(difficult, difficulty)
+            session['wordsList'] = wordsList
             return redirect(url_for('game_view'))
     return render_template('difficult.html')
 
@@ -87,23 +84,23 @@ def difficult_select():
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
     difficult = session.get('difficult', None)
-    word = None#palabra
-    photo_source = None
+    wordsList = session.get('wordsList', None)
+    if len(wordsList) != 0:
+        word = wordsList.pop()
+    else:
+        wordsList = getWords(difficult, difficulty)
+        word = wordsList.pop()
+    session['wordsList'] = wordsList
+    photo_source = f'{word}.png'
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
-            file = open("salida.txt", "a")
-            file.write(f'{num_sounds}\n')
             child_solution = []
             for i in range(num_sounds):
                 name_box = f'select{i}_letter'
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
-            file.write(f'{child_solution}\n')
-            file.close()
-            #revisar solucion del nino
-            
-            trueSolution = getSolution(word, words, solutions)
+            ans = (child_solution == solutions[word])
     return render_template('game.html', photo_source=photo_source)
 
 if __name__ == "__main__":
