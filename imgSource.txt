@@ -1,4 +1,3 @@
 PALOMA.png
 GLORIA.png
 AUTOMOVIL.png
-ZAPATO.png

@@ -6,7 +6,6 @@ from flask import *
 from pyDriveFunct import *
 
 scriptPath = sys.path[0]
-#UPLOAD_PATH = os.path.join(scriptPath, 'static', 'images', 'words')
 
 master_password = 'incs2022'
 fileName1 = 'words.txt'
@@ -42,9 +41,7 @@ words = dFile(wordsID,fileName1, drive)
 difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
 solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
 imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
-
 updateImages(imgFolderID, imgSource, scriptPath, drive)
-
 
 @app.route('/set/')
 def set():
@@ -74,28 +71,20 @@ def login_view():
 #VISTA NUEVA PALABRA
 @app.route('/palabra', methods=['GET', 'POST'])
 def new_word_view():
-    global words, difficulty, solutions, imgSource
-    scriptPath = sys.path[0]
-    UPLOAD_PATH = os.path.join(scriptPath, 'static','images','words')
+    LOCAL_IMAGES_PATH = os.path.join(scriptPath, 'static','images','words')
+    #Actualizar BD palabras
+    words = dFile(wordsID,fileName1, drive)
+    difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
+    solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
+    imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
+    updateImages(imgFolderID, imgSource, scriptPath, drive)
     if request.method == 'POST':
         if request.form["btn"] == "¡Agregar!":
-            words = dFile(wordsID,fileName1, drive)
-            difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
-            solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
-            imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
-            updateImages(imgFolderID, imgSource, scriptPath, drive)
-            difficult = int(request.form.get('dif'))
+            #Agregar palabra
             word = str(request.form['palabra']).upper()
-            img = f'{word}.png'
             addData2Files(word, fileName1)
             upload_file_to_drive(wordsID, fileName1, drive)
-            addData2Files(difficult, fileName3)
-            upload_file_to_drive(difficultyID, fileName3, drive)
-            addData2Files(img, fileName4)
-            upload_file_to_drive(imgSourceID, fileName4, drive)
-            file = request.files['file']
-            file.save(os.path.join(UPLOAD_PATH, img))
-            upload_file_to_drive(imgFolderID, os.path.join(UPLOAD_PATH, img), drive)
+            #Agregar solucion
             num_sounds = int(request.form.get("letterNum"))
             solution = ''
             for i in range(num_sounds):
@@ -105,7 +94,19 @@ def new_word_view():
             solution = solution[:-1]
             addData2Files(solution, fileName2)
             upload_file_to_drive(solutionsID, fileName2, drive)
-            #actualizar el drive
+            #Agregar dificultad
+            difficult = int(request.form.get('dif'))
+            addData2Files(difficult, fileName3)
+            upload_file_to_drive(difficultyID, fileName3, drive)
+            #Agregar nombre imagen
+            img = f'{word}.png'
+            addData2Files(img, fileName4)
+            upload_file_to_drive(imgSourceID, fileName4, drive)
+            #Guardar foto asociada a la nueva palabra
+            file = request.files['file']
+            file_name = os.path.join(LOCAL_IMAGES_PATH, img)
+            file.save(file_name) #guardar local
+            upload_file_to_drive(imgFolderID, file_name, drive) #guardar la foto en drive (error, no guarda)
     return render_template('new_word.html')
 
 #VISTA SELECCION DIFICULTAD

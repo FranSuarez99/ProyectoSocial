@@ -54,7 +54,9 @@ def updateImages(imgFolderID, imgSource, scriptPath, drive):
 	for i, file1 in enumerate(sorted(file_list, key = lambda x: x['title']), start=1):
 		file1.GetContentFile(file1['title'])
 	for filename in imgSource.values():
-		start = os.path.join(scriptPath, filename)
-		if os.path.isfile(start) != True:
-			moveto = os.path.join(scriptPath, 'static', 'images', 'words')
-			shutil.move(start,moveto)
+		src = os.path.join(scriptPath, filename)
+		dest = os.path.join(scriptPath, 'static', 'images', 'words')
+		if os.path.isfile(os.path.join(dest, filename)) != True: #si el archivo no existe lo muevo
+			shutil.move(src, dest)
+		else: #si ya existe lo borro
+			os.remove(src)
