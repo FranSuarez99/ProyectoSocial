@@ -9,34 +9,60 @@
 <body>
     <div class="row h-100 justify-content-center align-items-center" id="BlackImg">
         <div class="row justify-content-center align-items-center" id="loginDiv">
-            <form method="POST" action="/">
-                <div class="row justify-content-center w-100">
+            <div class="row justify-content-center w-100">
+                <form id="word_form" action="/palabra" method="post">
                     <table>
+                        <tr><td><img src="../static/images/INCS.png" id="logo"></td></tr>
+                        <tr><td><input type="text" name="palabra" placeholder="Palabra" id="palabra" required></td></tr>
                         <tr>
-                            <td><img src="../static/images/INCS.png" id="logo"></td>
+                            <td>
+                                <div class="row justify-content-center align-items-center">
+                                    <button type="button" class="btn btn-primary" id="menos" name="menos" onclick="removeLetter();">-</button>
+                                    <button  type="button" class="btn btn-primary" id="mas" name="mas" onclick="addLetter();">+</button>
+                                </div>
+                                    <div class="row justify-content-center align-items-center" id="div_select">
+                                        <input type="hidden" id="letterNum" name="letterNum" value="1">
+                                        <input type="hidden" id="select0_letter" name="select0_letter">
+                                        <select id="select0" class="slick">
+                                            <option value="0" data-description="" data-imagesrc="../static/images/white.png"></option>
+                                            <option value="1" data-description="" data-imagesrc="../static/images/red.png"></option>
+                                            <option value="2" data-description="" data-imagesrc="../static/images/green.png"></option>
+                                        </select>
+                                    </div>
+                            </td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="palabra" placeholder="Palabra" id="palabra" required></td>
+                            <td>
+                                <select id="dif" name="dif" class="dif">
+                                    <option value="0">Facil</option>
+                                    <option value="1">Intermedio</option>
+                                    <option value="2">Dificil</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
-                            <td><input type="number" name="sonidos" placeholder="Número sonidos" id="sonidos" min="0" max="10"  required></td>
+                            <td>
+                                <label for="file-upload" class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload"></i> Subir Imagen
+                                </label>
+                                <input id="file-upload" name="imgSource" type="file" accept=".png"/>
+                            </td>
                         </tr>
-                        <tr>
-                            <td id="new_word_table"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="submit" value="Jaja sí" id="login" name="b1"></td>
-                        </tr>
-            </form>
-            </table>
+                        <tr><td><input type="submit" value="¡Agregar!" id="login" name="btn"></td></tr>
+                    </table>
+                </form>
             </div>
-            </form>
         </div>
     </div>
+    <!-- SLICK -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js" ></script>
+    <script src="../static/js/new_word.js"></script>
+    <!-- -->
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="../static/js/new_word.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>
