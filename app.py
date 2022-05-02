@@ -1,6 +1,6 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
-import requests, csv, sys, os
+import requests, sys
 from flask import *
 
 from pyDriveFunct import *
@@ -73,7 +73,7 @@ def new_word_view():
 def difficult_select():
     if request.method == 'POST':
         if request.form["btn"] == "¡Empecemos!":
-            difficult = int(str(request.form.get('dif')))
+            difficult = int(request.form.get('dif'))
             session['difficult'] = difficult
             wordsList = getWords(difficult, difficulty)
             session['wordsList'] = wordsList
@@ -91,7 +91,7 @@ def game_view():
         wordsList = getWords(difficult, difficulty)
         word = wordsList.pop()
     session['wordsList'] = wordsList
-    photo_source = None
+    photo_source = f'{word}.png'
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
@@ -101,9 +101,6 @@ def game_view():
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
             ans = (child_solution == solutions[word])
-            #file = open("salida.txt", "a")
-            #file.write(str(ans)+"\n")
-            #file.close()
     return render_template('game.html', photo_source=photo_source)
 
 if __name__ == "__main__":

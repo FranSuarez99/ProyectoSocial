@@ -2,7 +2,8 @@ from random import shuffle
 
 def dFile(id,fileN, drive):
 	"""
-	input:un id que hace referencia al id del archivo en drive y un fileN que es el nombre deo archivo en drive
+	input:un id que hace referencia al id del archivo en drive y un fileN que es el nombre del
+	archivo en drive
 	output: el contenido separado por linea del archivo guardado en drive
 	"""
 	download_file = drive.CreateFile({'id': id})
@@ -22,6 +23,11 @@ def sPalabra(w,s,d,i,words):
 		ans = None
 
 def getWords(d, difficulty):
+	"""
+	Input: Recibe una dificultad d (int) y el diccionario de todas las dificultades (llaves las palabras
+	y valor la dificultad)
+	Output: Una lista randomizada de las palabras de la dificultad especifica d
+	"""
 	wordsD = [word for word, diff in difficulty.items() if diff == d]
 	shuffle(wordsD)
 	return wordsD
