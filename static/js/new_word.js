@@ -20,7 +20,7 @@ for(var i=0;i<letters;i++){ //Transforms each select to a div using Slick jQuery
         imagePosition:"left",
         selectedText:"test¿",
         onSelected: function(data){
-        	$(("#"+data.original.context.id+"_letter")).html(data.selectedData.value);
+        	$(("#"+data.original.context.id+"_letter")).val(data.selectedData.value);
         }
 	});
 	document.getElementById("select"+i).hidden = true;

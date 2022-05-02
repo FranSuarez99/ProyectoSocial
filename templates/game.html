@@ -17,7 +17,12 @@
         </nav>
 
         <div class="row justify-content-center align-items-center" id="imagen">
-            <img src="static/images/{{ photo_source }}" alt="" style="height: 500px;" />
+            <span class="label-points" style="color: #66A9D9;">¡Puntaje!: </span>
+            <span class="label-points" name="puntos">0</span>
+            <img src="../static/images/star.png" style="height: 30px;">
+        </div>
+        <div class="row justify-content-center align-items-center" id="imagen">
+            <img src="static/images/words/{{ photo_source }}" alt="" style="height: 500px;" />
         </div>
         <div class="row justify-content-center align-items-center">
             <button class="btn btn-primary" id="menos" onclick="removeLetter();">-</button>
@@ -31,6 +36,9 @@
                   <option value="0" data-description="" data-imagesrc="../static/images/white.png"></option>
                   <option value="1" data-description="" data-imagesrc="../static/images/red.png"></option>
                   <option value="2" data-description="" data-imagesrc="../static/images/green.png"></option>
+                  <option value="3" data-description="" data-imagesrc="../static/images/tilde.png"></option>
+                  <option value="4" data-description="" data-imagesrc="../static/images/green2.png"></option>
+                  <option value="5" data-description="" data-imagesrc="../static/images/green3.png"></option>
               </select>
           </div>
           <div class="row justify-content-center align-items-center">
