@@ -36,22 +36,13 @@
                                 <label for="file-upload" class="custom-file-upload">
                                     <i class="fa fa-cloud-upload"></i> Subir Imagen
                                 </label>
-                                <input id="file-upload" type="file" accept=".png"/> 
+                                <input id="file-upload" name="imgSource" type="file" accept=".png"/> 
                             </td>
                         </tr>
                         <tr><td><input type="submit" value="¡Agregar!" id="login" name="btn"></td></tr>
-                        <tr>
-                            <td>
-                                <div class="">
-                                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-                                    <p>{{ message }}</p>
-                                    {% endfor %} {% endif %} {% endwith %}
-                                </div>
-                            </td>
-                        </tr>
                     </table>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
     <!-- SLICK -->
