@@ -1,43 +1,46 @@
-window.onload = function () {
 
-    /* event listener */
-    document.getElementsByName("sonidos")[0].addEventListener('change', doThing);
-    console.log("a");
+var letters = 10; //Max number of letters in a word
 
-    /* function */
-    function doThing(){
-        var table_row = document.getElementById("new_word_table");
-        table_row.innerHTML = "";
-        var number = document.getElementById("sonidos").value
-		console.log("a")
-
-        
-        
-        for (let i = 0; i < number; i++) {
-            table_row.innerHTML = "<select id='intento' style='width: 200px;'><option data-img_src= ../static/images/white.png></option></select>"  
-        }
-        
-    }
-
+var table_row = document.getElementById("div_select");
+var formElement = document.getElementById("select0");
+var letter = document.getElementById("select0_letter");
+for(var i=1;i<letters;i++){ //Adds the letters
+    var aux_form = formElement.cloneNode(true);
+    var aux_letter = letter.cloneNode(true);
+    aux_form.id = "select"+i;
+    aux_letter.id = "select"+i+"_letter";
+    aux_letter.name = "select"+i+"_letter";
+    table_row.appendChild(aux_letter);
+    table_row.appendChild(aux_form);
 }
 
-
-
-$(document).ready(function () {
-    function custom_template(obj){
-        var data = $(obj.element).data();
-        var text = $(obj.element).text();
-        if(data && data['img_src']){
-            img_src = data['img_src'];
-            template = $("<div><img src=\"" + img_src + "\" style=\"width:100%;height:150px;\"/><p style=\"font-weight: 700;font-size:14pt;text-align:center;\">" + text + "</p></div>");
-            return template;
+for(var i=0;i<letters;i++){ //Transforms each select to a div using Slick jQuery plugin
+	$("#select"+i).ddslick({
+        width:"100px",
+        imagePosition:"left",
+        selectedText:"test¿",
+        onSelected: function(data){
+        	$(("#"+data.original.context.id+"_letter")).html(data.selectedData.value);
         }
-    }
-    var options = {
-    'templateSelection': custom_template,
-    'templateResult': custom_template,
-    }
-    $('#intento').select2(options);
-    $('.select2-container--default .select2-selection--single').css({'height': '220px'});
-    
-  });
+	});
+	document.getElementById("select"+i).hidden = true;
+}
+document.getElementById("select0").hidden = false;
+
+function addLetter(){
+	var letterNum = document.getElementById("letterNum");
+	var aux = parseInt(letterNum.value);
+	if(aux < letters){
+		document.getElementById("select"+aux).hidden = false;
+		letterNum.value = aux+1;
+	}
+}
+
+function removeLetter(){
+	var letterNum = document.getElementById("letterNum");
+	var aux = parseInt(letterNum.value);
+	if(aux > 1){
+		document.getElementById("select"+(aux-1)).hidden = true;
+		letterNum.value = aux-1;
+	}
+}
