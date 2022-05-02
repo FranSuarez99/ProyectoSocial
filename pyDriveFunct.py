@@ -31,3 +31,13 @@ def getWords(d, difficulty):
 	wordsD = [word for word, diff in difficulty.items() if diff == d]
 	shuffle(wordsD)
 	return wordsD
+
+def addData2Files(data, file):
+	"""
+	Input: data es el nombre de la informacion que se va a guardar en el archivo dado (file)
+	Output: N.A. (se actualizan los archivos txt locales)
+	"""
+	file = open(file, "a")
+	file.write(str(data)+"\n")
+	file.close()
+	return
