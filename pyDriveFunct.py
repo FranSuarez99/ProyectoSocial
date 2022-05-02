@@ -1,4 +1,5 @@
 from random import shuffle
+import os, shutil
 
 def dFile(id,fileN, drive):
 	"""
@@ -41,3 +42,19 @@ def addData2Files(data, file):
 	file.write(str(data)+"\n")
 	file.close()
 	return
+
+def upload_file_to_drive(file_id, local_path, drive):
+    """Overwrites the existing Google drive file."""
+    update_file = drive.CreateFile({'id': file_id})
+    update_file.SetContentFile(local_path)
+    update_file.Upload()
+
+def updateImages(imgFolderID, imgSource, scriptPath, drive):
+	file_list = drive.ListFile({'q': "'{}' in parents and trashed=false".format(imgFolderID)}).GetList()
+	for i, file1 in enumerate(sorted(file_list, key = lambda x: x['title']), start=1):
+		file1.GetContentFile(file1['title'])
+	for filename in imgSource.values():
+		start = os.path.join(scriptPath, filename)
+		if os.path.isfile(start) != True:
+			moveto = os.path.join(scriptPath, 'static', 'images', 'words')
+			shutil.move(start,moveto)

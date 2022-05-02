@@ -1,16 +1,19 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
-import requests, sys, os
+import requests, sys, os, shutil
 from flask import *
 
 from pyDriveFunct import *
+
+scriptPath = sys.path[0]
+#UPLOAD_PATH = os.path.join(scriptPath, 'static', 'images', 'words')
 
 master_password = 'incs2022'
 fileName1 = 'words.txt'
 fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
 fileName4 = 'imgSource.txt'
-
+fileName5 = 'imgFolder'
 #Configuramos la app de flask
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -20,23 +23,28 @@ authG = GoogleAuth()
 authG.LocalWebserverAuth()
 drive = GoogleDrive(authG)
 
-wordsID, solutionsID, difficultyID, imgSourceID = None, None, None, None
+wordsID, solutionsID, difficultyID, imgSourceID, imgFolderID = None, None, None, None, None
 
 file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
 for file1 in file_list:#check every file on Drive and saves the ID of the needed files
-  if file1['title'] == fileName1:
-      wordsID = file1['id']
-  if file1['title'] == fileName2:
-      solutionsID = file1['id']
-  if file1['title'] == fileName3:
-      difficultyID = file1['id']
-  if file1['title'] == fileName4:
-      imgSourceID = file1['id']
+    if file1['title'] == fileName1:
+        wordsID = file1['id']
+    if file1['title'] == fileName2:
+        solutionsID = file1['id']
+    if file1['title'] == fileName3:
+        difficultyID = file1['id']
+    if file1['title'] == fileName4:
+        imgSourceID = file1['id']
+    if file1['title'] == fileName5:
+        imgFolderID = file1['id']
 
 words = dFile(wordsID,fileName1, drive)
 difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
 solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
 imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
+
+updateImages(imgFolderID, imgSource, scriptPath, drive)
+
 
 @app.route('/set/')
 def set():
@@ -66,18 +74,28 @@ def login_view():
 #VISTA NUEVA PALABRA
 @app.route('/palabra', methods=['GET', 'POST'])
 def new_word_view():
+    global words, difficulty, solutions, imgSource
     scriptPath = sys.path[0]
-    UPLOAD_PATH = os.path.join(scriptPath, 'static/images/words/')
+    UPLOAD_PATH = os.path.join(scriptPath, 'static','images','words')
     if request.method == 'POST':
         if request.form["btn"] == "¡Agregar!":
+            words = dFile(wordsID,fileName1, drive)
+            difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
+            solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
+            imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
+            updateImages(imgFolderID, imgSource, scriptPath, drive)
             difficult = int(request.form.get('dif'))
             word = str(request.form['palabra']).upper()
-            imgSource = f'{word}.png'
+            img = f'{word}.png'
             addData2Files(word, fileName1)
+            upload_file_to_drive(wordsID, fileName1, drive)
             addData2Files(difficult, fileName3)
-            addData2Files(imgSource, fileName4)
+            upload_file_to_drive(difficultyID, fileName3, drive)
+            addData2Files(img, fileName4)
+            upload_file_to_drive(imgSourceID, fileName4, drive)
             file = request.files['file']
-            file.save('{0}{1}'.format(UPLOAD_PATH, imgSource))
+            file.save(os.path.join(UPLOAD_PATH, img))
+            upload_file_to_drive(imgFolderID, os.path.join(UPLOAD_PATH, img), drive)
             num_sounds = int(request.form.get("letterNum"))
             solution = ''
             for i in range(num_sounds):
@@ -86,6 +104,7 @@ def new_word_view():
                 solution += f'{sound},'
             solution = solution[:-1]
             addData2Files(solution, fileName2)
+            upload_file_to_drive(solutionsID, fileName2, drive)
             #actualizar el drive
     return render_template('new_word.html')
 
