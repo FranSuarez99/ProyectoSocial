@@ -1,10 +1,10 @@
 
 var letters = 10; //Max number of letters in a word
 
-var table_row = document.getElementById("div_select"); // selects container
-var formElement = document.getElementById("select0"); // select to copy
-var letter = document.getElementById("select0_letter"); // input where the value will be saved
-for(var i=1;i<letters;i++){ //Adds the letters (Copy and paste the selects)
+var table_row = document.getElementById("div_select");
+var formElement = document.getElementById("select0");
+var letter = document.getElementById("select0_letter");
+for(var i=1;i<letters;i++){ //Adds the letters
     var aux_form = formElement.cloneNode(true);
     var aux_letter = letter.cloneNode(true);
     aux_form.id = "select"+i;
@@ -20,14 +20,14 @@ for(var i=0;i<letters;i++){ //Transforms each select to a div using Slick jQuery
         imagePosition:"left",
         selectedText:"test¿",
         onSelected: function(data){
-        	$(("#"+data.original.context.id+"_letter")).html(data.selectedData.value);
+        	$(("#"+data.original.context.id+"_letter")).val(data.selectedData.value);
         }
 	});
 	document.getElementById("select"+i).hidden = true;
 }
 document.getElementById("select0").hidden = false;
 
-function addLetter(){ // show the last hidden select
+function addLetter(){
 	var letterNum = document.getElementById("letterNum");
 	var aux = parseInt(letterNum.value);
 	if(aux < letters){
@@ -36,7 +36,7 @@ function addLetter(){ // show the last hidden select
 	}
 }
 
-function removeLetter(){ // hide the last shown select 
+function removeLetter(){
 	var letterNum = document.getElementById("letterNum");
 	var aux = parseInt(letterNum.value);
 	if(aux > 1){
