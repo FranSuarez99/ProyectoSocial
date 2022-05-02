@@ -119,3 +119,10 @@ button {
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
+
+.label-points {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    padding: 5px 5px 5px 5px;
+}
