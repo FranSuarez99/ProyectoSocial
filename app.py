@@ -1,6 +1,6 @@
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
-import requests, sys
+import requests, sys, os
 from flask import *
 
 from pyDriveFunct import *
@@ -66,6 +66,27 @@ def login_view():
 #VISTA NUEVA PALABRA
 @app.route('/palabra', methods=['GET', 'POST'])
 def new_word_view():
+    scriptPath = sys.path[0]
+    UPLOAD_PATH = os.path.join(scriptPath, 'static/images/words/')
+    if request.method == 'POST':
+        if request.form["btn"] == "¡Agregar!":
+            difficult = int(request.form.get('dif'))
+            word = str(request.form['palabra']).upper()
+            imgSource = f'{word}.png'
+            addData2Files(word, fileName1)
+            addData2Files(difficult, fileName3)
+            addData2Files(imgSource, fileName4)
+            file = request.files['file']
+            file.save('{0}{1}'.format(UPLOAD_PATH, imgSource))
+            num_sounds = int(request.form.get("letterNum"))
+            solution = ''
+            for i in range(num_sounds):
+                name_box = f'select{i}_letter'
+                sound = int(request.form.get(name_box))
+                solution += f'{sound},'
+            solution = solution[:-1]
+            addData2Files(solution, fileName2)
+            #actualizar el drive
     return render_template('new_word.html')
 
 #VISTA SELECCION DIFICULTAD
