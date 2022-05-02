@@ -99,14 +99,15 @@ def new_word_view():
             addData2Files(difficult, fileName3)
             upload_file_to_drive(difficultyID, fileName3, drive)
             #Agregar nombre imagen
-            img = f'{word}.png'
+            #img = f'{word}.png'
+            img = str(word)+".png"
             addData2Files(img, fileName4)
             upload_file_to_drive(imgSourceID, fileName4, drive)
             #Guardar foto asociada a la nueva palabra
             file = request.files['file']
             file_name = os.path.join(LOCAL_IMAGES_PATH, img)
             file.save(file_name) #guardar local
-            upload_file_to_drive(imgFolderID, file_name, drive) #guardar la foto en drive (error, no guarda)
+            uploadPhoto(imgFolderID, file_name, img, drive) #guardar la foto en drive
     return render_template('new_word.html')
 
 #VISTA SELECCION DIFICULTAD
