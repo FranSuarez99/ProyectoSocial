@@ -73,3 +73,6 @@ def updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, di
 	solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
 	imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
 	return words, difficulty, solutions, imgSource
+
+def parser(p):
+	return p.replace('ñ', '0')

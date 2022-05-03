@@ -3,4 +3,4 @@ GLORIA.png
 AUTOMOVIL.png
 ZAPATO.png
 GATO.png
-
+NI0A.png

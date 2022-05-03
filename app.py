@@ -45,8 +45,6 @@ for file1 in file_list:#check every file on Drive and saves the ID of the needed
 words, difficulty, solutions, imgSource = updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive)
 updateImages(imgFolderID, imgSource, scriptPath, drive)
 
-
-
 @app.route('/set/')
 def set():
     session['key'] = 'value'
@@ -85,7 +83,7 @@ def new_word_view():
     if request.method == 'POST':
         if request.form["btn"] == "¡Agregar!":
             #Agregar palabra
-            word = str(request.form['palabra']).upper()
+            word = parser(str(request.form['palabra'])).upper()
             addData2Files(word, fileName1)
             upload_file_to_drive(wordsID, fileName1, drive)
             #Agregar solucion
