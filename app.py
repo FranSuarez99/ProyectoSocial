@@ -101,8 +101,7 @@ def new_word_view():
             addData2Files(difficult, fileName3)
             upload_file_to_drive(difficultyID, fileName3, drive)
             #Agregar nombre imagen
-            #img = f'{word}.png'
-            img = str(word)+".png"
+            img = f'{word}.png'
             addData2Files(img, fileName4)
             upload_file_to_drive(imgSourceID, fileName4, drive)
             #Guardar foto asociada a la nueva palabra
@@ -152,11 +151,6 @@ def game_view():
     session['wordsList'] = wordsList
     sol = solutions[wordTemp2]
     photo_source = f'{wordTemp}.png'
-    file = open("salida.txt", "a")
-    file.write("word: "+str(word)+"\n")
-    file.write("wordTemp: "+str(wordTemp)+"\n")
-    file.write("wordTemp2: "+str(wordTemp2)+"\n")
-    file.close()
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
@@ -165,11 +159,6 @@ def game_view():
                 name_box = f'select{i}_letter'
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
-            file = open("salida.txt", "a")
-            file.write("word: "+str(word)+"\n")
-            file.write("wordTemp2: "+str(child_solution)+"\n")
-            file.write("sol: "+str(sol)+"\n")
-            file.close()
             ans = (child_solution == sol)
             if ans: score += 10
             else:  score += 5
