@@ -5,6 +5,8 @@ from flask import *
 
 from pyDriveFunct import *
 
+score = 0
+
 scriptPath = sys.path[0]
 
 master_password = 'incs2022'
@@ -51,6 +53,8 @@ def set():
 #VISTA DE INDEX
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
+    global score
+    score = 0
     if request.method == 'POST':
         if request.form["btn"] == "Soy Profesor":
             return redirect(url_for('login_view'))
@@ -125,15 +129,21 @@ def difficult_select():
 #VISTA JUEGO NINO
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
+    global score
     difficult = session.get('difficult', None)
     wordsList = session.get('wordsList', None)
+    word = None
     if len(wordsList) != 0:
         word = wordsList.pop()
     else:
         wordsList = getWords(difficult, difficulty)
         word = wordsList.pop()
+    file = open("salida.txt", "a")
+    file.write(str(word)+"\n")
+    file.close()
     session['wordsList'] = wordsList
     photo_source = f'{word}.png'
+    sol = solutions[word]
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
@@ -142,8 +152,15 @@ def game_view():
                 name_box = f'select{i}_letter'
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
-            ans = (child_solution == solutions[word])
-    return render_template('game.html', photo_source=photo_source)
+            file = open("salida.txt", "a")
+            file.write(str(word)+"\n")
+            file.write(str(child_solution)+"\n")
+            file.write(str(sol)+"\n")
+            file.close()
+            ans = (child_solution == sol)
+            if ans: score += 10
+            else:  score += 5
+    return render_template('game.html', photo_source=photo_source, score=score)
 
 if __name__ == "__main__":
     app.debug = True
