@@ -6,6 +6,9 @@ from flask import *
 from pyDriveFunct import *
 
 score = 0
+wordTemp = None
+wordTemp2 = None
+firstIter = True
 
 scriptPath = sys.path[0]
 
@@ -39,11 +42,10 @@ for file1 in file_list:#check every file on Drive and saves the ID of the needed
     if file1['title'] == fileName5:
         imgFolderID = file1['id']
 
-words = dFile(wordsID,fileName1, drive)
-difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
-solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
-imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
+words, difficulty, solutions, imgSource = updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive)
 updateImages(imgFolderID, imgSource, scriptPath, drive)
+
+
 
 @app.route('/set/')
 def set():
@@ -75,12 +77,10 @@ def login_view():
 #VISTA NUEVA PALABRA
 @app.route('/palabra', methods=['GET', 'POST'])
 def new_word_view():
+    global words, difficulty, solutions, imgSource
     LOCAL_IMAGES_PATH = os.path.join(scriptPath, 'static','images','words')
     #Actualizar BD palabras
-    words = dFile(wordsID,fileName1, drive)
-    difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
-    solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
-    imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
+    words, difficulty, solutions, imgSource = updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive)
     updateImages(imgFolderID, imgSource, scriptPath, drive)
     if request.method == 'POST':
         if request.form["btn"] == "¡Agregar!":
@@ -112,6 +112,7 @@ def new_word_view():
             file_name = os.path.join(LOCAL_IMAGES_PATH, img)
             file.save(file_name) #guardar local
             uploadPhoto(imgFolderID, file_name, img, drive) #guardar la foto en drive
+            words, difficulty, solutions, imgSource = updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive)
     return render_template('new_word.html')
 
 #VISTA SELECCION DIFICULTAD
@@ -129,21 +130,35 @@ def difficult_select():
 #VISTA JUEGO NINO
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
-    global score
+    global score, wordTemp, wordTemp2, firstIter
     difficult = session.get('difficult', None)
     wordsList = session.get('wordsList', None)
     word = None
-    if len(wordsList) != 0:
-        word = wordsList.pop()
+    if firstIter:
+        if len(wordsList) != 0:
+            word = wordsList.pop()
+        else:
+            wordsList = getWords(difficult, difficulty)
+            word = wordsList.pop()
+        wordTemp = word
+        wordTemp2 = word
+        firstIter = False
     else:
-        wordsList = getWords(difficult, difficulty)
-        word = wordsList.pop()
-    file = open("salida.txt", "a")
-    file.write(str(word)+"\n")
-    file.close()
+        if len(wordsList) != 0:
+            word = wordsList.pop()
+        else:
+            wordsList = getWords(difficult, difficulty)
+            word = wordsList.pop()
+        wordTemp2 = wordTemp
+        wordTemp = word
     session['wordsList'] = wordsList
-    photo_source = f'{word}.png'
-    sol = solutions[word]
+    sol = solutions[wordTemp2]
+    photo_source = f'{wordTemp}.png'
+    file = open("salida.txt", "a")
+    file.write("word: "+str(word)+"\n")
+    file.write("wordTemp: "+str(wordTemp)+"\n")
+    file.write("wordTemp2: "+str(wordTemp2)+"\n")
+    file.close()
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
@@ -153,9 +168,9 @@ def game_view():
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
             file = open("salida.txt", "a")
-            file.write(str(word)+"\n")
-            file.write(str(child_solution)+"\n")
-            file.write(str(sol)+"\n")
+            file.write("word: "+str(word)+"\n")
+            file.write("wordTemp2: "+str(child_solution)+"\n")
+            file.write("sol: "+str(sol)+"\n")
             file.close()
             ans = (child_solution == sol)
             if ans: score += 10

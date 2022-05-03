@@ -66,3 +66,10 @@ def updateImages(imgFolderID, imgSource, scriptPath, drive):
 			shutil.move(src, dest)
 		else: #si ya existe lo borro
 			os.remove(src)
+
+def updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive):
+	words = dFile(wordsID,fileName1, drive)
+	difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
+	solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
+	imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
+	return words, difficulty, solutions, imgSource
