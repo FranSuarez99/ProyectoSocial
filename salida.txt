@@ -1,0 +1,120 @@
+word: GLORIA
+wordTemp: GLORIA
+wordTemp2: GLORIA
+word: ZAPATO
+wordTemp: ZAPATO
+wordTemp2: GLORIA
+word: ZAPATO
+wordTemp2: [0, 1, 1]
+sol: [0, 1, 1]
+word: PALOMA
+wordTemp: PALOMA
+wordTemp2: ZAPATO
+word: PALOMA
+wordTemp2: [2, 1, 2, 1, 2, 1]
+sol: [2, 1, 2, 1, 2, 1]
+word: GATO
+wordTemp: GATO
+wordTemp2: PALOMA
+word: GATO
+wordTemp2: [0, 2, 1, 2]
+sol: [0, 2, 1, 2]
+word: PALOMA
+wordTemp: PALOMA
+wordTemp2: GATO
+word: PALOMA
+wordTemp2: [2, 1, 2, 1]
+sol: [2, 1, 2, 1]
+word: PALOMA
+wordTemp: PALOMA
+wordTemp2: PALOMA
+word: ZAPATO
+wordTemp: ZAPATO
+wordTemp2: PALOMA
+word: ZAPATO
+wordTemp2: [0, 2, 1, 2]
+sol: [0, 2, 1, 2]
+word: GATO
+wordTemp: GATO
+wordTemp2: ZAPATO
+word: GATO
+wordTemp2: [2, 1, 2, 1, 2, 1]
+sol: [2, 1, 2, 1, 2, 1]
+word: GLORIA
+wordTemp: GLORIA
+wordTemp2: GATO
+word: GLORIA
+wordTemp2: [0, 0, 0, 0]
+sol: [2, 1, 2, 1]
+word: ZAPATO
+wordTemp: ZAPATO
+wordTemp2: GLORIA
+word: ZAPATO
+wordTemp2: [0, 1, 1]
+sol: [0, 1, 1]
+word: GLORIA
+wordTemp: GLORIA
+wordTemp2: ZAPATO
+word: GLORIA
+wordTemp2: [0, 0, 0, 0, 0, 0]
+sol: [2, 1, 2, 1, 2, 1]
+word: PALOMA
+wordTemp: PALOMA
+wordTemp2: GLORIA
+word: PALOMA
+wordTemp2: [0, 1, 1]
+sol: [0, 1, 1]
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: PALOMA
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: AUTOMOVIL
+word: AUTOMOVIL
+wordTemp2: [2, 2, 2, 2]
+sol: [2, 2, 2, 2]
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: AUTOMOVIL
+word: AUTOMOVIL
+wordTemp2: [0]
+sol: [2, 2, 2, 2]
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: AUTOMOVIL
+word: AUTOMOVIL
+wordTemp2: [0]
+sol: [2, 2, 2, 2]
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: AUTOMOVIL
+word: AUTOMOVIL
+wordTemp2: [0]
+sol: [2, 2, 2, 2]
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: AUTOMOVIL
+word: ELEFANTE
+wordTemp: ELEFANTE
+wordTemp2: AUTOMOVIL
+word: ELEFANTE
+wordTemp2: [2, 2, 2, 2]
+sol: [2, 2, 2, 2]
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: ELEFANTE
+word: AUTOMOVIL
+wordTemp2: [0]
+sol: [1, 2, 1, 2, 3, 2, 2, 1]
+word: ELEFANTE
+wordTemp: ELEFANTE
+wordTemp2: AUTOMOVIL
+word: ELEFANTE
+wordTemp2: [0]
+sol: [2, 2, 2, 2]
+word: AUTOMOVIL
+wordTemp: AUTOMOVIL
+wordTemp2: ELEFANTE
+word: AUTOMOVIL
+wordTemp2: [0]
+sol: [1, 2, 1, 2, 3, 2, 2, 1]
