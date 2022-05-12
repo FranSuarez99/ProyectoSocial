@@ -16,7 +16,6 @@ master_password = 'incs2022'
 fileName1 = 'words.txt'
 fileName2 = 'solutions.txt'
 fileName3 = 'difficulty.txt'
-fileName4 = 'imgSource.txt'
 fileName5 = 'imgFolder'
 #Configuramos la app de flask
 app = Flask(__name__)
@@ -27,7 +26,7 @@ authG = GoogleAuth()
 authG.LocalWebserverAuth()
 drive = GoogleDrive(authG)
 
-wordsID, solutionsID, difficultyID, imgSourceID, imgFolderID = None, None, None, None, None
+wordsID, solutionsID, difficultyID, imgFolderID = None, None, None, None
 
 file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
 for file1 in file_list:#check every file on Drive and saves the ID of the needed files
@@ -37,13 +36,11 @@ for file1 in file_list:#check every file on Drive and saves the ID of the needed
         solutionsID = file1['id']
     if file1['title'] == fileName3:
         difficultyID = file1['id']
-    if file1['title'] == fileName4:
-        imgSourceID = file1['id']
     if file1['title'] == fileName5:
         imgFolderID = file1['id']
 
-words, difficulty, solutions, imgSource = updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive)
-updateImages(imgFolderID, imgSource, scriptPath, drive)
+words, difficulty, solutions = updateLocalVariables(fileName1, fileName2, fileName3, wordsID, difficultyID, solutionsID, drive)
+updateImages(imgFolderID, words, scriptPath, drive)
 
 @app.route('/set/')
 def set():
@@ -75,11 +72,11 @@ def login_view():
 #VISTA NUEVA PALABRA
 @app.route('/palabra', methods=['GET', 'POST'])
 def new_word_view():
-    global words, difficulty, solutions, imgSource
+    global words, difficulty, solutions
     LOCAL_IMAGES_PATH = os.path.join(scriptPath, 'static','images','words')
     #Actualizar BD palabras
-    words, difficulty, solutions, imgSource = updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive)
-    updateImages(imgFolderID, imgSource, scriptPath, drive)
+    words, difficulty, solutions = updateLocalVariables(fileName1, fileName2, fileName3, wordsID, difficultyID, solutionsID, drive)
+    updateImages(imgFolderID, words, scriptPath, drive)
     if request.method == 'POST':
         if request.form["btn"] == "¡Agregar!":
             #Agregar palabra
@@ -100,16 +97,13 @@ def new_word_view():
             difficult = int(request.form.get('dif'))
             addData2Files(difficult, fileName3)
             upload_file_to_drive(difficultyID, fileName3, drive)
-            #Agregar nombre imagen
-            img = f'{word}.png'
-            addData2Files(img, fileName4)
-            upload_file_to_drive(imgSourceID, fileName4, drive)
             #Guardar foto asociada a la nueva palabra
+            img = f'{word}.png'
             file = request.files['file']
             file_name = os.path.join(LOCAL_IMAGES_PATH, img)
             file.save(file_name) #guardar local
             uploadPhoto(imgFolderID, file_name, img, drive) #guardar la foto en drive
-            words, difficulty, solutions, imgSource = updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive)
+            words, difficulty, solutions = updateLocalVariables(fileName1, fileName2, fileName3, wordsID, difficultyID, solutionsID, drive)
     return render_template('new_word.html')
 
 #VISTA SELECCION DIFICULTAD

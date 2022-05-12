@@ -12,17 +12,6 @@ def dFile(id,fileN, drive):
 	content = download_file.GetContentString().strip().split()
 	return content
 
-def sPalabra(w,s,d,i,words):
-	"""
-	Input: Recibe una string w de la palobra en cuestion
-	una lista l de n posiciones donde n es el numero de sonidos en la palabra,
-	cada poscion en L hace referencia a un tipo de sonido (consonante, vocal, vocal tonica, rr o ñ),
-	una dificultad d de la palabra y el nombre de la imagen i de la palabra.
-	output: guarda el archivo actualizado
-	"""
-	if w not in words:
-		ans = None
-
 def getWords(d, difficulty):
 	"""
 	Input: Recibe una dificultad d (int) y el diccionario de todas las dificultades (llaves las palabras
@@ -55,11 +44,12 @@ def uploadPhoto(file_id, local_path, img, drive):
 	file2['title'] = img # cambia nombre de png para eliminar el path
 	file2.Upload()
 
-def updateImages(imgFolderID, imgSource, scriptPath, drive):
+def updateImages(imgFolderID, words, scriptPath, drive):
 	file_list = drive.ListFile({'q': "'{}' in parents and trashed=false".format(imgFolderID)}).GetList()
 	for i, file1 in enumerate(sorted(file_list, key = lambda x: x['title']), start=1):
 		file1.GetContentFile(file1['title'])
-	for filename in imgSource.values():
+	for w in words:
+		filename = f'{w}.png'
 		src = os.path.join(scriptPath, filename)
 		dest = os.path.join(scriptPath, 'static', 'images', 'words')
 		if os.path.isfile(os.path.join(dest, filename)) != True: #si el archivo no existe lo muevo
@@ -67,12 +57,11 @@ def updateImages(imgFolderID, imgSource, scriptPath, drive):
 		else: #si ya existe lo borro
 			os.remove(src)
 
-def updateLocalVariables(fileName1, fileName2, fileName3, fileName4, wordsID, difficultyID, solutionsID, imgSourceID, drive):
+def updateLocalVariables(fileName1, fileName2, fileName3, wordsID, difficultyID, solutionsID, drive):
 	words = dFile(wordsID,fileName1, drive)
 	difficulty = dict(zip(words, list(map(int, dFile(difficultyID,fileName3, drive)))))
 	solutions = dict(zip(words, list(map(lambda x : list(map(int, x.split(','))), dFile(solutionsID,fileName2, drive))))) #python tu papa
-	imgSource = dict(zip(words, dFile(imgSourceID,fileName4, drive)))
-	return words, difficulty, solutions, imgSource
+	return words, difficulty, solutions
 
 def parser(p):
 	return p.replace('ñ', '0')

@@ -1,6 +1,0 @@
-PERRO.png
-NUBE.png
-NI0A.png
-NARIZ.png
-LAPIZ.png
-GATO.png
