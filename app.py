@@ -9,6 +9,7 @@ score = 0
 wordTemp = None
 wordTemp2 = None
 firstIter = True
+answers = {}
 
 scriptPath = sys.path[0]
 
@@ -121,7 +122,7 @@ def difficult_select():
 #VISTA JUEGO NINO
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
-    global score, wordTemp, wordTemp2, firstIter
+    global score, wordTemp, wordTemp2, firstIter, answers
     difficult = session.get('difficult', None)
     wordsList = session.get('wordsList', None)
     word = None
@@ -129,13 +130,12 @@ def game_view():
         if len(wordsList) != 0:
             lastIter = False
             word = wordsList.pop()
-            session['answers'] = {}
-            answers = session.get('answers', None)
         else:
             wordsList = getWords(difficult, difficulty)
             word = wordsList.pop()
         wordTemp = word
         wordTemp2 = word
+        session['answers'] = answers
         firstIter = False
     else:
         if len(wordsList) != 0:
@@ -145,12 +145,14 @@ def game_view():
         else:
             #wordsList = getWords(difficult, difficulty)
             #word = wordsList.pop()
+            file = open("salida.txt", "a")
+            file.write(str(answers)+"\n")
+            file.close()
             session['answers'] = answers
             lastIter = True
-    if lastIter != False:
-        session['wordsList'] = wordsList
-        sol = solutions[wordTemp2]
-        photo_source = f'{wordTemp}.png'
+    session['wordsList'] = wordsList
+    sol = solutions[wordTemp2]
+    photo_source = f'{wordTemp}.png'
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
