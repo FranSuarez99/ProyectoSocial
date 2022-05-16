@@ -127,7 +127,10 @@ def game_view():
     word = None
     if firstIter:
         if len(wordsList) != 0:
+            lastIter = False
             word = wordsList.pop()
+            session['answers'] = {}
+            answers = session.get('answers', None)
         else:
             wordsList = getWords(difficult, difficulty)
             word = wordsList.pop()
@@ -137,14 +140,17 @@ def game_view():
     else:
         if len(wordsList) != 0:
             word = wordsList.pop()
+            wordTemp2 = wordTemp
+            wordTemp = word
         else:
-            wordsList = getWords(difficult, difficulty)
-            word = wordsList.pop()
-        wordTemp2 = wordTemp
-        wordTemp = word
-    session['wordsList'] = wordsList
-    sol = solutions[wordTemp2]
-    photo_source = f'{wordTemp}.png'
+            #wordsList = getWords(difficult, difficulty)
+            #word = wordsList.pop()
+            session['answers'] = answers
+            lastIter = True
+    if lastIter != False:
+        session['wordsList'] = wordsList
+        sol = solutions[wordTemp2]
+        photo_source = f'{wordTemp}.png'
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
             num_sounds = int(request.form.get("letterNum"))
@@ -154,7 +160,9 @@ def game_view():
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
             ans = (child_solution == sol)
-            if ans: score += 10
+            if ans:
+                score += 10
+                answers[wordTemp2] = child_solution
             else:  score += 5
     return render_template('game.html', photo_source=photo_source, score=score)
 
