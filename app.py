@@ -145,13 +145,12 @@ def game_view():
         else:
             #wordsList = getWords(difficult, difficulty)
             #word = wordsList.pop()
-            file = open("salida.txt", "a")
-            file.write(str(answers)+"\n")
-            file.close()
+            wordTemp2 = wordTemp
             session['answers'] = answers
             lastIter = True
     session['wordsList'] = wordsList
     sol = solutions[wordTemp2]
+    wordTemp3 = wordTemp2
     photo_source = f'{wordTemp}.png'
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
@@ -164,8 +163,11 @@ def game_view():
             ans = (child_solution == sol)
             if ans:
                 score += 10
-                answers[wordTemp2] = child_solution
-            else:  score += 5
+                answers[wordTemp3] = ans
+            else:  
+                score += 5
+                answers[wordTemp3] = ans
+            session['answers'] = answers
     return render_template('game.html', photo_source=photo_source, score=score)
 
 if __name__ == "__main__":
