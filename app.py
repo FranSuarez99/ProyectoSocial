@@ -9,6 +9,7 @@ score = 0
 wordTemp = None
 wordTemp2 = None
 firstIter = True
+answers = {}
 
 scriptPath = sys.path[0]
 
@@ -121,29 +122,35 @@ def difficult_select():
 #VISTA JUEGO NINO
 @app.route('/game', methods=['GET', 'POST'])
 def game_view():
-    global score, wordTemp, wordTemp2, firstIter
+    global score, wordTemp, wordTemp2, firstIter, answers
     difficult = session.get('difficult', None)
     wordsList = session.get('wordsList', None)
     word = None
     if firstIter:
         if len(wordsList) != 0:
+            lastIter = False
             word = wordsList.pop()
         else:
             wordsList = getWords(difficult, difficulty)
             word = wordsList.pop()
         wordTemp = word
         wordTemp2 = word
+        session['answers'] = answers
         firstIter = False
     else:
         if len(wordsList) != 0:
             word = wordsList.pop()
+            wordTemp2 = wordTemp
+            wordTemp = word
         else:
-            wordsList = getWords(difficult, difficulty)
-            word = wordsList.pop()
-        wordTemp2 = wordTemp
-        wordTemp = word
+            #wordsList = getWords(difficult, difficulty)
+            #word = wordsList.pop()
+            wordTemp2 = wordTemp
+            session['answers'] = answers
+            lastIter = True
     session['wordsList'] = wordsList
     sol = solutions[wordTemp2]
+    wordTemp3 = wordTemp2
     photo_source = f'{wordTemp}.png'
     if request.method == 'POST':
         if request.form["btn"] == "¡Enviar!":
@@ -154,8 +161,13 @@ def game_view():
                 sound = int(request.form.get(name_box))
                 child_solution.append(sound)
             ans = (child_solution == sol)
-            if ans: score += 10
-            else:  score += 5
+            if ans:
+                score += 10
+                answers[wordTemp3] = ans
+            else:  
+                score += 5
+                answers[wordTemp3] = ans
+            session['answers'] = answers
     return render_template('game.html', photo_source=photo_source, score=score)
 
 if __name__ == "__main__":
