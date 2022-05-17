@@ -1,4 +1,4 @@
 @ECHO OFF
-ECHO Hello World! Your first batch file was printed on the screen successfully.
+ECHO Metodo Invariante Cargando
 python start_app.py
 EXIT
