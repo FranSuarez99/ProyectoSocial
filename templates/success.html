@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <link rel="stylesheet" href="../static/css/success.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="parent">
+        <nav class="navbar navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"> <img src="../static/images/INCS.png" id="logo"></a>
+            </div>
+
+        </nav>
+
+        <div class="row justify-content-center align-items-center" id="imagen">
+            <span class="label-points" style="color: #66A9D9;">¡Puntaje final!: </span>
+            <span class="label-points" name="puntos">{{ score }}</span>
+            <img src="../static/images/star.png" style="height: 30px;">
+        </div>
+        <div class="row justify-content-center align-items-center" id="imagen">
+            <span class="label-points" style="color: #66A9D9;">¡Resultados!</span>
+        </div>
+        
+        <div class="row justify-content-center align-items-center" style="padding: 0px 20px 0px 20px">
+          <!-- Ejemplo bien -->
+          <div class="level-box0" id="PALOMA">
+            <img src="../static/images/words/PALOMA.png" style="width: 100%; height: 80%;">
+            <div style="text-align: center">
+              <span class="label-points">10</span>
+              <img src="../static/images/star.png" style="height: 30px;">
+            </div>
+          </div>
+          <!-- -->
+
+          <!-- Ejemplo mal -->
+          <div class="level-box1" id="GATO">
+            <img src="../static/images/words/GATO.png" style="width: 100%; height: 80%;">
+            <div style="text-align: center">
+              <span class="label-points">5</span>
+              <img src="../static/images/star.png" style="height: 30px;">
+            </div>
+          </div>
+          <!-- -->
+
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+            <button class="btn btn-primary" id="menu" onclick="window.location.href='/'">Menu principal</button>
+        </div>
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
