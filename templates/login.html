@@ -22,6 +22,19 @@
                         <tr>
                             <td><input type="submit" value="Iniciar sesión" name="btn"></td>
                         </tr>
+                        <tr>
+                          <td>
+                            <div class="">
+                            {% with messages = get_flashed_messages() %}
+                              {% if messages %}
+                                {% for message in messages %}
+                                  <p>{{ message }}</p>
+                                {% endfor %}
+                              {% endif %}
+                            {% endwith %}
+                           </div>
+                         </td>
+                        </tr>
             </table>
             </div>
             </form>
