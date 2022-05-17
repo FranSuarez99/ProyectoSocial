@@ -174,7 +174,13 @@ def game_view():
 #VISTA JUEGO NINO
 @app.route('/results', methods=['GET', 'POST'])
 def results_view():
-    return render_template('results.html', score=score)
+    if request.method == 'POST':
+        if request.form["btn"] == "Menu Principal":
+            global answers, score
+            answers = {}
+            score = 0
+            return redirect(url_for('index_view'))
+    return render_template('success.html', score=score, answers=answers)
 
 if __name__ == "__main__":
     app.debug = True
