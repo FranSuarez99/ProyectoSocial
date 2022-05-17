@@ -175,8 +175,11 @@ def game_view():
 @app.route('/results', methods=['GET', 'POST'])
 def results_view():
     if request.method == 'POST':
-        if request.form["btn"] == "¡Enviar!":
-            pass
+        if request.form["btn"] == "Menu Principal":
+            global answers, score
+            answers = {}
+            score = 0
+            return redirect(url_for('index_view'))
     return render_template('success.html', score=score, answers=answers)
 
 if __name__ == "__main__":
