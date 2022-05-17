@@ -26,25 +26,27 @@
         </div>
 
         <div class="row justify-content-center align-items-center" style="padding: 0px 20px 0px 20px">
-          <!-- Ejemplo bien -->
-          <div class="level-box0" id="PALOMA">
-            <img src="../static/images/words/PALOMA.png" style="width: 100%; height: 80%;">
-            <div style="text-align: center">
-              <span class="label-points">10</span>
-              <img src="../static/images/star.png" style="height: 30px;">
-            </div>
-          </div>
-          <!-- -->
 
-          <!-- Ejemplo mal -->
-          <div class="level-box1" id="GATO">
-            <img src="../static/images/words/GATO.png" style="width: 100%; height: 80%;">
-            <div style="text-align: center">
-              <span class="label-points">5</span>
-              <img src="../static/images/star.png" style="height: 30px;">
-            </div>
-          </div>
-          <!-- -->
+          {% for ans in answers %}
+            {% if answers[ans] %}
+                <div class="level-box0">
+                  <img src="../static/images/words/{{ans}}.png" style="width: 100%; height: 80%;">
+                  <div style="text-align: center">
+                    <span class="label-points">10</span>
+                    <img src="../static/images/star.png" style="height: 30px;">
+                  </div>
+                </div>  
+            {% else %}
+                <div class="level-box1">
+                  <img src="../static/images/words/{{ans}}.png" style="width: 100%; height: 80%;">
+                  <div style="text-align: center">
+                    <span class="label-points">5</span>
+                    <img src="../static/images/star.png" style="height: 30px;">
+                  </div>
+                </div>
+            {% endif %}
+                  
+          {% endfor %}
 
         </div>
 
