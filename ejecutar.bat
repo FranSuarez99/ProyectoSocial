@@ -1,4 +1,4 @@
 @ECHO OFF
-ECHO Metodo Invariante Cargando
+ECHO Metodo Invariante Instalando
 python start_app.py
 EXIT
