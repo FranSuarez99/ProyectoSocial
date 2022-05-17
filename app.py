@@ -126,6 +126,7 @@ def game_view():
     difficult = session.get('difficult', None)
     wordsList = session.get('wordsList', None)
     word = None
+    lastIter = None
     if firstIter:
         if len(wordsList) != 0:
             lastIter = False
@@ -143,8 +144,6 @@ def game_view():
             wordTemp2 = wordTemp
             wordTemp = word
         else:
-            #wordsList = getWords(difficult, difficulty)
-            #word = wordsList.pop()
             wordTemp2 = wordTemp
             session['answers'] = answers
             lastIter = True
@@ -164,13 +163,18 @@ def game_view():
             if ans:
                 score += 10
                 answers[wordTemp3] = ans
-            else:  
+            else:
                 score += 5
                 answers[wordTemp3] = ans
             session['answers'] = answers
             if lastIter:
-                render_template('results.html',answers, score)
+                return redirect(url_for('results_view'))
     return render_template('game.html', photo_source=photo_source, score=score)
+
+#VISTA JUEGO NINO
+@app.route('/results', methods=['GET', 'POST'])
+def results_view():
+    return render_template('results.html', score=score)
 
 if __name__ == "__main__":
     app.debug = True
