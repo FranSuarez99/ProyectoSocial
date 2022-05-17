@@ -68,6 +68,8 @@ def login_view():
             password = request.form['pass']
             if password == master_password:
                 return redirect(url_for('new_word_view'))
+            else:
+                flash("Contraseña incorrecta")
     return render_template('login.html')
 
 #VISTA NUEVA PALABRA
