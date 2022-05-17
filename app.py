@@ -168,6 +168,8 @@ def game_view():
                 score += 5
                 answers[wordTemp3] = ans
             session['answers'] = answers
+            if lastIter:
+                render_template('results.html',answers, score)
     return render_template('game.html', photo_source=photo_source, score=score)
 
 if __name__ == "__main__":
